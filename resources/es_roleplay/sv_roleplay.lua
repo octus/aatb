@@ -12,7 +12,7 @@ function startswith(String,Start)
    return string.sub(String,1,string.len(Start))==Start
 end
 
--- /help général #test gitkraken
+-- /help général #test
 TriggerEvent('es:addCommand', 'help', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "Aides générale", {255, 0, 0}, "^5/discord /forum ^1/report (message aux admins) ^0/help1 /help2")
 	TriggerClientEvent("chatMessage", source, "Métiers/Factions", {255, 0, 0}, "/metiers /sysmetiers /factions")
