@@ -60,8 +60,13 @@ AutoStartResources:
     - smoke
     - loadipl
     - emergency 
+<<<<<<< HEAD
     - watermark
     
+=======
+    - watermark #nom du serveur en haut a gauche ! 
+
+>>>>>>> CASSECOUILLE
 # do change
 RconPassword: Labite2
 
