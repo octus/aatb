@@ -317,7 +317,7 @@ AddEventHandler('es_roleplay:sellVehicle', function(l)
 				end
 
 				if(chopTimer[source] < os.time())then
-					chopTimer[source] = os.time() + 600
+					chopTimer[source] = os.time() + 1800 -- 30 minutes
 					local pay = math.random(1000, 2000)
 
 					user:addMoney(pay)
