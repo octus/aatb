@@ -59,12 +59,10 @@ AutoStartResources:
     - dealer_crack
     - smoke
     - loadipl
-<<<<<<< HEAD
     - emergency 
-<<<<<<< HEAD
-    - watermark
+    - watermark #nom serv
 
->>>>>>> CASSECOUILLE
+
 # do change
 RconPassword: Labite2
 
