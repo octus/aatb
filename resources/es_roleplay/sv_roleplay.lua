@@ -29,7 +29,7 @@ end)
 -- /sysmetiers
 TriggerEvent('es:addCommand', 'sysmetiers', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "Comment ça fonctionne ?", {255, 0, 0}, "Tous les métiers du ^1Pole Emploi ^0fonctionnent de la même façon:")
-	TriggerClientEvent("chatMessage", source, "En 3 étapes", {255, 0, 0}, "^2*1:^0Tu ^4récoltes ^0la matière première, ^2*2:^0Tu la ^4traites^0 en marchandise, ^2*3:^0Tu ^4vends ta marchandise")
+	TriggerClientEvent("chatMessage", source, "En 3 étapes", {255, 0, 0}, "^2-1:^0Tu ^4récoltes ^0la matière première, ^2-2:^0Tu la ^4traites^0 en marchandise, ^2-3:^0Tu ^4vends ta marchandise")
 	TriggerClientEvent("chatMessage", source, "!-!", {255, 0, 0}, "Certains métiers ne nécessitent pas de ^4traitement")
 	TriggerClientEvent("chatMessage", source, "!-!", {255, 0, 0}, "Les métiers ^4illégaux ^0fonctionne de la même manière")
 	TriggerClientEvent("chatMessage", source, "Inventaire", {255, 0, 0}, "Touche '^2K^0' pour ouvrir l'inventaire")
@@ -77,12 +77,12 @@ TriggerEvent('es:addCommand', 'discord', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "HELP", {255, 0, 0}, "https://discord.gg/Hq6tWdu")
 end)
 
---[[ Default commands
+-- Default commands
 TriggerEvent('es:addAdminCommand', 'delveh', 3, function(source, args, user)
 	TriggerClientEvent("es_roleplay:deleteVehicle", source)
 end, function(source, args, user)
 
-end)]]
+end)
 
 -- Default commands
 TriggerEvent('es:addCommand', 'pay', function(source, args, user)
