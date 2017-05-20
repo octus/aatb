@@ -60,7 +60,7 @@ AutoStartResources:
     - smoke
     - loadipl
     - emergency 
-    - watermark #nom serv
+    - watermark #nom serveur
 
 
 # do change
