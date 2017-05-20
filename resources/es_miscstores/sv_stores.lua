@@ -232,8 +232,9 @@ AddEventHandler('es_roleplay:buyWeapon', function(weapon, ped)
 					end
 					for key,value in ipairs(weaponsOwned[source]) do
 						if(value == weapon)then
-							TriggerClientEvent("es_miscstores:clerkSpeech", source, ped, 3)
-							TriggerClientEvent('chatMessage', source, "AMMUNATION", {255, 0, 0}, "Tu as déjà cette arme.")
+							TriggerClientEvent("es_miscstores:clerkSpeech", source, ped, 1)
+							TriggerClientEvent('chatMessage', source, "AMMUNATION", {255, 0, 0}, "Voilà tes munitions!")
+							TrigerClientEvent("es_roleplay:giveAmmo", source, weapon, 50)
 							return
 						end
 					end
@@ -245,6 +246,7 @@ AddEventHandler('es_roleplay:buyWeapon', function(weapon, ped)
 						user:removeMoney(price)
 						TriggerClientEvent('chatMessage', source, "AMMUNATION", {255, 0, 0}, "Arme achetée.")
 						TriggerClientEvent("es_roleplay:giveWeapon", source, weapon)
+						TrigerClientEvent("es_roleplay:giveAmmo", source, weapon, 50)
 						TriggerClientEvent("es_miscstores:clerkSpeech", -1, ped, 1)
 						if(not weaponsOwned[source])then
 							weaponsOwned[source] = {}
