@@ -94,7 +94,7 @@ AutoStartResources:
     - smoke
     - loadipl
     - emergency 
-    - watermark #nom du serveur en haut a gauche.
+    - watermark #nom du serveur en haut a gauche ! 
 
 # do change
 RconPassword: Labite2
