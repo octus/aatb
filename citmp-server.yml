@@ -59,7 +59,7 @@ AutoStartResources:
     - dealer_crack
     - smoke
     - loadipl
-    - emergency
+    - emergency #test
     
 # do change
 RconPassword: Labite2
