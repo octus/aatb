@@ -87,8 +87,8 @@ TriggerEvent('es:addAdminCommand', 'delveh', 3, function(source, args, user)
 	TriggerClientEvent("es_roleplay:deleteVehicle", source)
 end, function(source, args, user)
 
-end)]]
-
+end)
+]]
 -- Default commands
 TriggerEvent('es:addCommand', 'pay', function(source, args, user)
 	local amount = args[2]
@@ -237,10 +237,6 @@ TriggerEvent('es:addCommand', 'id', function(source, args, user)
 	end)
 	end)
 end)]]
-
--- /id
-TriggerEvent('es:addCommand', 'id', function(source, args, user)
-	TriggerClientEvent('chatMessage', id, "TON ID", {255, 0, 0}, "^0* " .. GetPlayerName(source) .. " (^1"..source.."^0) ")
 
 --[[ DO
 TriggerEvent('es:addCommand', 'do', function(source, args, user)
