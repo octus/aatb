@@ -59,7 +59,7 @@ AutoStartResources:
     - dealer_crack
     - smoke
     - loadipl
-    - emergency #test pour jack 2
+    - emergency #test pour jack toshx celui qui va faire l'aide
     
 # do change
 RconPassword: Labite2
