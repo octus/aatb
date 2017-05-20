@@ -33,6 +33,11 @@ AddEventHandler('es_roleplay:giveWeapon', function(v)
 	table.insert(weapons, v)
 end)
 
+RegisterNetEvent('es_roleplay:giveAmmo')
+AddEventHandler('es_roleplay:giveAmmo', function(v, numAmmo)
+	AddAmmoToPed(GetPlayerPed(-1), GetHashKey(v), numAmmo) 
+end)
+
 RegisterNetEvent('es_roleplay:removeAllWeapons')
 AddEventHandler('es_roleplay:removeAllWeapons', function()
 	RemoveAllPedWeapons(GetPlayerPed(-1), true)
@@ -477,7 +482,7 @@ Citizen.CreateThread(function()
 		for k,v in ipairs(weapons) do
 			local hash = GetHashKey(v)
 
-			SetPedInfiniteAmmo(GetPlayerPed(-1), true, hash)
+			SetPedInfiniteAmmo(GetPlayerPed(-1), false, hash)
 			GiveDelayedWeaponToPed(GetPlayerPed(-1), hash, 0, false)
 		end
 	end
