@@ -59,19 +59,9 @@ AutoStartResources:
     - dealer_crack
     - smoke
     - loadipl
-<<<<<<< HEAD
     - emergency 
-<<<<<<< HEAD
     - watermark
-=======
-    - emergency #test pour jack
-    - watermark #test pour ethan error merge
->>>>>>> JACK
-    
-=======
-    - watermark #nom du serveur en haut a gauche ! 
 
->>>>>>> CASSECOUILLE
 # do change
 RconPassword: Labite2
 
