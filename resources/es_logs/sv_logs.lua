@@ -1,4 +1,4 @@
--- Loading MySQL Class
+--FAITCHIER-- Loading MySQL Class
 require "resources/essentialmode/lib/MySQL"
 
 -- MySQL:open("IP", "databasname", "user", "password")
