@@ -20,34 +20,25 @@ TriggerEvent('es:addCommand', 'help', function(source, args, user)
 end)
 -- /metiers
 TriggerEvent('es:addCommand', 'metiers', function(source, args, user)
-	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "Il existe deux sortes de métiers différents:")
-	TriggerClientEvent("chatMessage", source, ">>", {255, 0, 0}, "Les métiers ^4légaux ^0sont disponibles au ^1Pole Emploi")
-	TriggerClientEvent("chatMessage", source, ">>", {255, 0, 0}, "Il est représenté par une malette sur ^1ta carte")
-	TriggerClientEvent("chatMessage", source, ">>>", {255, 0, 0}, "Les métiers ^4illégaux ^0 sont disponible uniquement dans certains lieux")
-	TriggerClientEvent("chatMessage", source, ">>>", {255, 0, 0}, "^4Il te faut les trouver ^0avant de pouvoir faire de commencer à travailler")
+	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "Il existe deux sortes de métiers différents: les métiers ^4légaux ^0sont disponibles au ^1Pole Emploi^0. Il est représenté par une malette sur ^1ta carte^0.Les métiers ^4illégaux ^0sont disponible uniquement dans certains lieux secrets, ^4il te faut les trouver ^0avant de pouvoir faire de commencer à travailler")
 end)
 -- /sysmetiers
 TriggerEvent('es:addCommand', 'sysmetiers', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "Comment ça fonctionne ?", {255, 0, 0}, "Tous les métiers du ^1Pole Emploi ^0fonctionnent de la même façon:")
-	TriggerClientEvent("chatMessage", source, "En 3 étapes", {255, 0, 0}, "^2-1:^0Tu ^4récoltes ^0la matière première, ^2-2:^0Tu la ^4traites^0 en marchandise, ^2-3:^0Tu ^4vends ta marchandise")
-	TriggerClientEvent("chatMessage", source, "!-!", {255, 0, 0}, "Certains métiers ne nécessitent pas de ^4traitement")
-	TriggerClientEvent("chatMessage", source, "!-!", {255, 0, 0}, "Les métiers ^4illégaux ^0fonctionne de la même manière")
+	TriggerClientEvent("chatMessage", source, "3 étapes", {255, 0, 0}, "^2°1:^0Tu ^4récoltes ^0la matière première, ^2°2:^0Tu la ^4traites^0 en marchandise, ^2°3:^0Tu ^4vends ta marchandise")
+	TriggerClientEvent("chatMessage", source, "!-!", {255, 0, 0}, "Les métiers ^4illégaux ^0fonctionne de la même manière. Certains métiers ne nécessitent pas de ^4traitement")
 	TriggerClientEvent("chatMessage", source, "Inventaire", {255, 0, 0}, "Touche '^2K^0' pour ouvrir l'inventaire")
 end)
 -- /regles
 TriggerEvent('es:addCommand', 'regles', function(source, args, user)
-	TriggerClientEvent("chatMessage", source, "Règles (HRP) du serveurs", {255, 0, 0}, "Le respect sous toutes ses formes, envers qui que se soit est obligatoire")
-	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "Il en va pour tous et envers tous, joueurs ou administrateurs, homme ou femme, TOUS.")
+	TriggerClientEvent("chatMessage", source, "Règles (HRP) du serveurs", {255, 0, 0}, "Le respect sous toutes ses formes, envers qui que se soit est obligatoire. Il en va pour tous et envers tous, joueurs ou administrateurs, homme ou femme, TOUS.")
 	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "^3Pas de : freekill/freeshot/freepunch, spawnkill, troll, exploitation de bug, autres: ^2/metagame")
-	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "Les sanctions en cas de non respect des règles sont variables")
-	TriggerClientEvent("chatMessage", source, "!-!", {255, 0, 0}, "Vous êtes sur un serveur ^2Hard Roleplay^0, ^1le ban est définitif^0.")
-	TriggerClientEvent("chatMessage", source, "!-!", {255, 0, 0}, "Plus d'informations sur les règles du serveur sur notre forum: /forum")
+	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "Les sanctions en cas de non respect des règles sont variables, vous êtes sur un serveur ^2Hard Roleplay^0, ^1le ban est définitif^0. Plus d'informations sur les règles du serveur sur notre forum: ^4/forum")
 end)
 -- /metagame
 TriggerEvent('es:addCommand', 'metagame', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "Pas de", {255, 0, 0}, "^3Metagame^0: Mélanger le RP du HRP (Hors Roleplay)")
-	TriggerClientEvent("chatMessage", source, "Pas de", {255, 0, 0}, "^3KO magique^0: Tout abus du système ou se souvenir des actions durant le KO")
-	TriggerClientEvent("chatMessage", source, "Pas de", {255, 0, 0}, "^3NLR ^0(^3New Life Rule^0): Revenir sur le lieu (ou la scène RP) de votre mort/coma")
+	TriggerClientEvent("chatMessage", source, "Pas de", {255, 0, 0}, "^3KO abusif^0: Tout abus du système ou se souvenir des actions durant le KO")
 	TriggerClientEvent("chatMessage", source, "Pas de", {255, 0, 0}, "^3Revenge^0: Se venger de celui qui vous a, mis dans le coma ou, tué")
 	TriggerClientEvent("chatMessage", source, "Pas de", {255, 0, 0}, "^3Powergame^0: Agir en NO-RP en exploitant le système du jeu de base")
 end)
@@ -56,10 +47,9 @@ TriggerEvent('es:addCommand', 'help1', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "Appeler la police", {255, 0, 0}, "^4/911 MESSAGE^0 pour signaler un crime")
 	TriggerClientEvent("chatMessage", source, "Roleplay (RP)", {255, 0, 0}, "^4/me ^0pour ^1signaler ^0une action -seule- RP par écrit")
 	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "^3Exemple: ^1/me ^0fouille dans son nez")
-	TriggerClientEvent("chatMessage", source, "ID", {255, 0, 0}, "^2/id ^0pour connaitre ton ID ou appuies sur la flèche du haut du clavier")
 end)
 --/help2
-TriggerEvent('es:addCommand', 'help2', function(source, args, user)63
+TriggerEvent('es:addCommand', 'help2', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "Hors Roleplay (HRP)", {255, 0, 0}, "^4/ooc MESSAGE^0 pour envoyer un chat Hors RolePlay")
 	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "^3Exemple: ^1/ooc ^0Comment on change la touche pour parler ?") 
 	TriggerClientEvent("chatMessage", source, "Argent liquide", {255, 0, 0}, "^4/pay ^1ID MONTANT^0 pour donner de l'argent -sur soi- à un joueur")
@@ -69,12 +59,22 @@ TriggerEvent('es:addCommand', 'help3', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, "A la mort", {255, 0, 0}, "Vous perdez tout votre argent que vous n'avez pas mis en banque ainsi que vos armes")
 	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "Vous perdez aussi votre statut -En service- (factions)")
 	TriggerClientEvent("chatMessage", source, "LS Customs", {255, 0, 0}, "^3Provisoir^0: Aucune modification du véhicule n'est sauvegardée")
-	TriggerClientEvent("chatMessage", source, "Contrôles du véhicule", {255, 0, 0}, "Touche '^2M^0' ou '^2?^0' pour ouvrir le menu du véhicule")73
+	TriggerClientEvent("chatMessage", source, "Contrôles du véhicule", {255, 0, 0}, "Touche '^2M^0' pour ouvrir le menu du véhicule")
 end)
 
--- Default commands
+-- /factions
+TriggerEvent('es:addCommand', 'factions', function(source, args, user)
+	TriggerClientEvent("chatMessage", source, "Factions", {255, 0, 0}, "Certaines professions ne fonctionnent pas comme les métiers du ^1Pole Emploi^0: comme la ^4Police^0, les ^4Ambulanciers^0, les ^4Journalistes^0 et les ^4Entreprises privées^0. Il faut être ^1invité^0 par le ^1chef de faction^0 pour y entrer.")
+end)
+
+-- /forum
+TriggerEvent('es:addCommand', 'forum', function(source, args, user)
+	TriggerClientEvent("chatMessage", source, "Forum", {255, 0, 0}, "Bientôt")
+end)
+
+-- /discord
 TriggerEvent('es:addCommand', 'discord', function(source, args, user)
-	TriggerClientEvent("chatMessage", source, "HELP", {255, 0, 0}, "https://discord.gg/Hq6tWdu")
+	TriggerClientEvent("chatMessage", source, "Discord", {255, 0, 0}, "https://discord.gg/Hq6tWdu")
 end)
 
 -- Default commands
