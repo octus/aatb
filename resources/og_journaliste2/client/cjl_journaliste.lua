@@ -26,6 +26,7 @@ local txt = {
 		['getService'] = 'Appuyez sur ~g~E~s~ pour prendre votre service',
 		['dropService'] = 'Appuyez sur ~g~E~s~ pour terminer votre service',
 		['getJouveh'] = 'Appuyez sur ~g~E~s~ pour obtenir un véhicule',
+		['getJouheli'] = 'Appuyez sur ~g~E~s~ pour obtenir un helicoptère',
 		--['callTaken'] = 'L\'appel a été pris par ~b~',
 		--['emergency'] = '<b>~r~SCOOP~s~ <br><br>~b~Raison~s~: </b>',
 		--['takeCall'] = '<b>Appuyez sur ~g~Y~s~ pour prendre l\'appel</b>',
