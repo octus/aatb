@@ -121,6 +121,32 @@ Citizen.CreateThread(
 		end
 end)
 
+Citizen.CreateThread(
+	function()
+		local x = -1047.583
+		local y = -234.785
+		local z = 53.511
+
+		while true do
+			Citizen.Wait(1)
+
+			local playerPos = GetEntityCoords(GetPlayerPed(-1), true)
+
+			if (Vdist(playerPos.x, playerPos.y, playerPos.z, x, y, z) < 100.0) and isInService and jobId == 16 then
+				-- Service car
+				DrawMarker(1, x, y, z - 1, 0, 0, 0, 0, 0, 0, 3.0001, 3.0001, 1.5001, 255, 165, 0,165, 0, 0, 0,0)
+
+				if (Vdist(playerPos.x, playerPos.y, playerPos.z, x, y, z) < 2.0) then
+					DisplayHelpText(txt[lang]['getJouveh'])
+
+					if (IsControlJustReleased(1, 51)) then
+						SpawnJouveh()
+					end
+				end
+			end
+		end
+end)
+
 --[[
 ################################
             EVENTS
