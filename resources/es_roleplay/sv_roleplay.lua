@@ -12,8 +12,9 @@ function startswith(String,Start)
    return string.sub(String,1,string.len(Start))==Start
 end
 
--- /help général
+-- Default commands
 TriggerEvent('es:addCommand', 'help', function(source, args, user)
+<<<<<<< HEAD
 	TriggerClientEvent("chatMessage", source, "Aides générale", {255, 0, 0}, "^5/discord /forum ^1/report (message aux admins) ^0/help1 /help2")
 	TriggerClientEvent("chatMessage", source, "Métiers/Factions", {255, 0, 0}, "/metiers /sysmetiers /factions")
 	TriggerClientEvent("chatMessage", source, "Règles HRP du serveur", {255, 0, 0}, "^5/regles /metagame")
@@ -60,6 +61,11 @@ TriggerEvent('es:addCommand', 'help3', function(source, args, user)
 	TriggerClientEvent("chatMessage", source, ">", {255, 0, 0}, "Vous perdez aussi votre statut -En service- (factions)")
 	TriggerClientEvent("chatMessage", source, "LS Customs", {255, 0, 0}, "^3Provisoir^0: Aucune modification du véhicule n'est sauvegardée")
 	TriggerClientEvent("chatMessage", source, "Contrôles du véhicule", {255, 0, 0}, "Touche '^2M^0' pour ouvrir le menu du véhicule")
+=======
+	TriggerClientEvent("chatMessage", source, "HELP", {255, 0, 0}, "Commandes: ^2/jc^0, ^2/911")
+	TriggerClientEvent("chatMessage", source, "HELP", {255, 0, 0}, "Commandes: ^2/unseat^0, ^2/checkplate^0, ^2/ooc^0, ^2/me") 
+	TriggerClientEvent("chatMessage", source, "HELP", {255, 0, 0}, "Commandes: ^2/discord ^0, ^2/id")
+>>>>>>> Journalistes
 end)
 
 -- /factions
