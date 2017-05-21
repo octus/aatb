@@ -5,8 +5,8 @@ local checkpoints = {}
 local existingVeh = nil
 --local handCuffed = false
 local isAlreadyDead = false
-local allServiceJous = {}
-local blipsJous = {}
+local allServiceJou = {}
+local blipsJou = {}
 
 local takingService = {
   {x=-1049.70629882813, y=-241.964126586914, z=44.0210723876953}
@@ -118,32 +118,32 @@ AddEventHandler('police:forcedEnteringVeh', function(veh)
 	end
 end)]]
 
-RegisterNetEvent('journaliste:resultAllJousInService')
-AddEventHandler('journaliste:resultAllJousInService', function(array)
-	allServiceJous = array
+RegisterNetEvent('journaliste:resultAllJouInService')
+AddEventHandler('journaliste:resultAllJouInService', function(array)
+	allServiceJou = array
 	enableJouBlips()
 end)
 
 function enableJouBlips()
 
-	for k, existingBlip in pairs(blipsJous) do
+	for k, existingBlip in pairs(blipsJou) do
         RemoveBlip(existingBlip)
     end
-	blipsJous = {}
+	blipsJou = {}
 	
-	local localIdJous = {}
+	local localIdJou = {}
 	for id = 0, 64 do
 		if(NetworkIsPlayerActive(id) and GetPlayerPed(id) ~= GetPlayerPed(-1)) then
-			for i,c in pairs(allServiceJous) do
+			for i,c in pairs(allServiceJou) do
 				if(i == GetPlayerServerId(id)) then
-					localIdJous[id] = c
+					localIdJou[id] = c
 					break
 				end
 			end
 		end
 	end
 	
-	for id, c in pairs(localIdJous) do
+	for id, c in pairs(localIdJou) do
 		local ped = GetPlayerPed(id)
 		local blip = GetBlipFromEntity(ped)
 		
@@ -158,7 +158,7 @@ function enableJouBlips()
 			SetBlipScale( blip,  0.85 )
 			SetBlipAlpha( blip, 255 )
 			
-			table.insert(blipsJous, blip)
+			table.insert(blipsJou, blip)
 		else
 			
 			blipSprite = GetBlipSprite( blip )
@@ -174,7 +174,7 @@ function enableJouBlips()
 			SetBlipScale( blip,  0.85 )
 			SetBlipAlpha( blip, 255 )
 			
-			table.insert(blipsJous, blip)
+			table.insert(blipsJou, blip)
 		end
 	end
 end
@@ -271,12 +271,12 @@ function ServiceOff()
 	TriggerServerEvent("jobssystem:jobs", 1)
 	TriggerServerEvent("journaliste:breakService")
 	
-	allServiceJous = {}
+	allServiceJou = {}
 	
-	for k, existingBlip in pairs(blipsJous) do
+	for k, existingBlip in pairs(blipsJou) do
         RemoveBlip(existingBlip)
     end
-	blipsJous = {}
+	blipsJou = {}
 end]]
 
 Citizen.CreateThread(function()

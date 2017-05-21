@@ -67,10 +67,10 @@ end]]
 
 AddEventHandler('playerDropped', function()
 	if(inServiceJous[source]) then
-		inServiceJous[source] = nil
+		inServiceJou[source] = nil
 		
 		for i, c in pairs(inServiceJous) do
-			TriggerClientEvent("journaliste:resultAllJousInService", i, inServiceJous)
+			TriggerClientEvent("journaliste:resultAllJouInService", i, inServiceJous)
 		end
 	end
 end)
@@ -96,8 +96,8 @@ AddEventHandler('journaliste:takeService', function()
 	if(not inServiceJous[source]) then
 		inServiceJous[source] = GetPlayerName(source)
 		
-		for i, c in pairs(inServiceJous) do
-			TriggerClientEvent("journaliste:resultAllJousInService", i, inServiceJous)
+		for i, c in pairs(inServiceJou) do
+			TriggerClientEvent("journaliste:resultAllJouInService", i, inServiceJou)
 		end
 	end
 end)
@@ -105,18 +105,18 @@ end)
 RegisterServerEvent('journaliste:breakService')
 AddEventHandler('journaliste:breakService', function()
 
-	if(inServiceJous[source]) then
-		inServiceJous[source] = nil
+	if(inServiceJou[source]) then
+		inServiceJou[source] = nil
 		
 		for i, c in pairs(inServiceJous) do
-			TriggerClientEvent("journaliste:resultAllJousInService", i, inServiceJous)
+			TriggerClientEvent("journaliste:resultAllJouInService", i, inServiceJous)
 		end
 	end
 end)
 
-RegisterServerEvent('journaliste:getAllJousInService')
-AddEventHandler('journaliste:getAllJousInService', function()
-	TriggerClientEvent("journaliste:resultAllJousInService", source, inServiceJous)
+RegisterServerEvent('journaliste:getAllJouInService')
+AddEventHandler('journaliste:getAllJouInService', function()
+	TriggerClientEvent("journaliste:resultAllJouInService", source, inServiceJous)
 end)
 
 --[[RegisterServerEvent('police:checkingPlate')
