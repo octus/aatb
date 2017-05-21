@@ -1,12 +1,12 @@
---local isCop = false
---local isInService = false
+local isJou = false
+local isInService = false
 local rank = "inconnu"
 local checkpoints = {}
 local existingVeh = nil
 --local handCuffed = false
 local isAlreadyDead = false
-local allServiceCops = {}
---local blipsCops = {}
+local allServiceJous = {}
+local blipsJous = {}
 
 local takingService = {
   {x=-1049.70629882813, y=-241.964126586914, z=44.0210723876953}
@@ -32,27 +32,27 @@ local stationGarage = {
 }
 
 AddEventHandler("playerSpawned", function()
-	TriggerServerEvent("journaliste:checkIsCop")
+	TriggerServerEvent("journaliste:checkIsJou")
 end)
 
-RegisterNetEvent('journaliste:receiveIsCop')
-AddEventHandler('journaliste:receiveIsCop', function(result)
+RegisterNetEvent('journaliste:receiveIsJou')
+AddEventHandler('journaliste:receiveIsJou', function(result)
 	if(result == "inconnu") then
-		isCop = false
+		isJou = false
 	else
-		isCop = true
+		isJou = true
 		rank = result
 	end
 end)
 
-RegisterNetEvent('journaliste:nowCop')
-AddEventHandler('journaliste:nowCop', function()
-	isCop = true
+RegisterNetEvent('journaliste:nowJou')
+AddEventHandler('journaliste:nowJou', function()
+	isJou = true
 end)
 
-RegisterNetEvent('journaliste:noLongerCop')
-AddEventHandler('journaliste:noLongerCop', function()
-	isCop = false
+RegisterNetEvent('journaliste:noLongerJou')
+AddEventHandler('journaliste:noLongerJou', function()
+	isJou = false
 	isInService = false
 	
 	local playerPed = GetPlayerPed(-1)
@@ -118,32 +118,32 @@ AddEventHandler('police:forcedEnteringVeh', function(veh)
 	end
 end)]]
 
-RegisterNetEvent('journaliste:resultAllCopsInService')
-AddEventHandler('journaliste:resultAllCopsInService', function(array)
-	allServiceCops = array
-	enableCopBlips()
+RegisterNetEvent('journaliste:resultAllJousInService')
+AddEventHandler('journaliste:resultAllJousInService', function(array)
+	allServiceJous = array
+	enableJouBlips()
 end)
 
---[[function enableCopBlips()
+function enableJouBlips()
 
-	for k, existingBlip in pairs(blipsCops) do
+	for k, existingBlip in pairs(blipsJous) do
         RemoveBlip(existingBlip)
     end
-	blipsCops = {}
+	blipsJous = {}
 	
-	local localIdCops = {}
+	local localIdJous = {}
 	for id = 0, 64 do
 		if(NetworkIsPlayerActive(id) and GetPlayerPed(id) ~= GetPlayerPed(-1)) then
-			for i,c in pairs(allServiceCops) do
+			for i,c in pairs(allServiceJous) do
 				if(i == GetPlayerServerId(id)) then
-					localIdCops[id] = c
+					localIdJous[id] = c
 					break
 				end
 			end
 		end
 	end
 	
-	for id, c in pairs(localIdCops) do
+	for id, c in pairs(localIdJous) do
 		local ped = GetPlayerPed(id)
 		local blip = GetBlipFromEntity(ped)
 		
@@ -158,7 +158,7 @@ end)
 			SetBlipScale( blip,  0.85 )
 			SetBlipAlpha( blip, 255 )
 			
-			table.insert(blipsCops, blip)
+			table.insert(blipsJous, blip)
 		else
 			
 			blipSprite = GetBlipSprite( blip )
@@ -174,7 +174,7 @@ end)
 			SetBlipScale( blip,  0.85 )
 			SetBlipAlpha( blip, 255 )
 			
-			table.insert(blipsCops, blip)
+			table.insert(blipsJous, blip)
 		end
 	end
 end
@@ -226,7 +226,7 @@ function drawTxt(text,font,centre,x,y,scale,r,g,b,a)
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
 	DrawText(x , y)
-end]]
+end
 
 function getIsInService()
 	return isInService
@@ -271,44 +271,44 @@ function ServiceOff()
 	TriggerServerEvent("jobssystem:jobs", 1)
 	TriggerServerEvent("journaliste:breakService")
 	
-	allServiceCops = {}
+	allServiceJous = {}
 	
-	for k, existingBlip in pairs(blipsCops) do
+	for k, existingBlip in pairs(blipsJous) do
         RemoveBlip(existingBlip)
     end
-	blipsCops = {}
+	blipsJous = {}
 end]]
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if(isCop) then
+        if(isJou) then
 			if(isNearTakeService()) then
 			
-				--[[DisplayHelpText('Appuie sur ~INPUT_CONTEXT~ pour ouvrir le ~b~casier de police',0,1,0.5,0.8,0.6,255,255,255,255) -- ~g~E~s~
+				DisplayHelpText('Appuie sur ~INPUT_CONTEXT~ pour ouvrir le ~b~casier de journaliste',0,1,0.5,0.8,0.6,255,255,255,255) -- ~g~E~s~
 				if IsControlJustPressed(1,51) then
 					OpenMenuVest()
 				end
 			end
 			if(isInService) then
 				if IsControlJustPressed(1,166) then 
-					OpenPoliceMenu()
+					OpenJMenu()
 				end
 			end
 			
-			if(isInService) then]]
+			if(isInService) then
 				if(isNearStationGarage()) then
-					if(policevehicle ~= nil) then --existingVeh
+					if(jvehicle ~= nil) then --existingVeh
 						DisplayHelpText('Appuie sur ~INPUT_CONTEXT~ pour ranger ton ~b~véhicule',0,1,0.5,0.8,0.6,255,255,255,255)
 					else
 						DisplayHelpText('Appuie sur ~INPUT_CONTEXT~ pour ouvrir le ~b~garage des journalistes',0,1,0.5,0.8,0.6,255,255,255,255)
 					end
 					
 					if IsControlJustPressed(1,51) then
-						if(policevehicle ~= nil) then
-							SetEntityAsMissionEntity(policevehicle, true, true)
-							Citizen.InvokeNative(0xEA386986E786A54F, Citizen.PointerValueIntInitialized(policevehicle))
-							policevehicle = nil
+						if(jvehicle ~= nil) then
+							SetEntityAsMissionEntity(jvehicle, true, true)
+							Citizen.InvokeNative(0xEA386986E786A54F, Citizen.PointerValueIntInitialized(jvehicle))
+							jvehicle = nil
 						else
 							OpenVeh()
 						end
@@ -342,7 +342,7 @@ local alreadyDead = false
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if(isCop) then
+        if(isJou) then
 			if(isInService) then
 			
 				if(IsPlayerDead(PlayerId())) then

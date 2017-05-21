@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------Cop Locker---------------------------------------------
 -----------------------------------------------------------------------------------------------------------------
-local vestpolice = {
+local jvest = {
 	opened = false,
 	title = "Casier journaliste",
 	currentmenu = "main",
@@ -40,14 +40,14 @@ local hashSkin = GetHashKey("mp_m_freemode_01")
 -------------------------------------------------
 function ButtonSelectedVest(button)
 	local ped = GetPlayerPed(-1)
-	local this = vestpolice.currentmenu
+	local this = jvest.currentmenu
 	local btn = button.name
 	if this == "main" then
 		if btn == "Prendre ton service" then
 			ServiceOn()                                                 -- En Service + Uniforme
 			giveUniforme()
 			drawNotification("Tu es en ~g~service")
-			drawNotification("Appuie sur ~g~F5~w~ pour ouvrir le ~b~menu police")
+			drawNotification("Appuie sur ~g~F5~w~ pour ouvrir le ~b~menu journaliste")
 		elseif btn == "Arrêter ton service" then
 			ServiceOff()
 			removeUniforme()                                            --Finir Service + Enleve Uniforme
@@ -131,10 +131,10 @@ end
 ----------------CONFIG OPEN MENU-----------------
 -------------------------------------------------
 function OpenVestMenu(menu)
-	vestpolice.menu.from = 1
-	vestpolice.menu.to = 10
-	vestpolice.selectedbutton = 0
-	vestpolice.currentmenu = menu
+	jvest.menu.from = 1
+	jvest.menu.to = 10
+	jvest.selectedbutton = 0
+	jvest.currentmenu = menu
 end
 -------------------------------------------------
 ------------------DRAW NOTIFY--------------------
@@ -156,7 +156,7 @@ end
 ------------------DRAW TITLE MENU----------------
 -------------------------------------------------
 function drawMenuTitle(txt,x,y)
-local menu = vestpolice.menu
+local menu = jvest.menu
 	SetTextFont(2)
 	SetTextProportional(0)
 	SetTextScale(0.5, 0.5)
@@ -170,7 +170,7 @@ end
 ------------------DRAW MENU BOUTON---------------
 -------------------------------------------------
 function drawMenuButton(button,x,y,selected)
-	local menu = vestpolice.menu
+	local menu = jvest.menu
 	SetTextFont(menu.font)
 	SetTextProportional(0)
 	SetTextScale(menu.scale, menu.scale)
@@ -193,7 +193,7 @@ end
 ------------------DRAW MENU INFO-----------------
 -------------------------------------------------
 function drawMenuInfo(text)
-	local menu = vestpolice.menu
+	local menu = jvest.menu
 	SetTextFont(menu.font)
 	SetTextProportional(0)
 	SetTextScale(0.45, 0.45)
@@ -208,7 +208,7 @@ end
 ----------------DRAW MENU DROIT------------------
 -------------------------------------------------
 function drawMenuRight(txt,x,y,selected)
-	local menu = vestpolice.menu
+	local menu = jvest.menu
 	SetTextFont(menu.font)
 	SetTextProportional(0)
 	SetTextScale(menu.scale, menu.scale)
@@ -248,7 +248,7 @@ function BackVest()
 		return
 	end
 	backlock = true
-	if vestpolice.currentmenu == "main" then
+	if jvest.currentmenu == "main" then
 		CloseMenuVest()
 	end
 end
@@ -294,17 +294,17 @@ end
 ----------------FONCTION OPEN--------------------
 -------------------------------------------------
 function OpenMenuVest()
-	vestpolice.currentmenu = "main"
-	vestpolice.opened = true
-	vestpolice.selectedbutton = 0
+	jvest.currentmenu = "main"
+	jvest.opened = true
+	jvest.selectedbutton = 0
 end
 -------------------------------------------------
 ----------------FONCTION CLOSE-------------------
 -------------------------------------------------
 function CloseMenuVest()
-		vestpolice.opened = false
-		vestpolice.menu.from = 1
-		vestpolice.menu.to = 10
+		jvest.opened = false
+		jvest.menu.from = 1
+		jvest.menu.to = 10
 end
 -------------------------------------------------
 ----------------FONCTION OPEN MENU---------------
@@ -314,31 +314,31 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		if GetDistanceBetweenCoords(-1045.266, -237.996, 37.964,GetEntityCoords(GetPlayerPed(-1))) > 2 then
-			if vestpolice.opened then
+			if jvest.opened then
 				CloseMenuVest()
 			end
 		end
-		if vestpolice.opened then
+		if jvest.opened then
 			local ped = LocalPed()
-			local menu = vestpolice.menu[vestpolice.currentmenu]
-			drawTxt(vestpolice.title,1,1,vestpolice.menu.x,vestpolice.menu.y,1.0, 255,255,255,255)
-			drawMenuTitle(menu.title, vestpolice.menu.x,vestpolice.menu.y + 0.08)
-			drawTxt(vestpolice.selectedbutton.."/"..tablelength(menu.buttons),0,0,vestpolice.menu.x + vestpolice.menu.width/2 - 0.0385,vestpolice.menu.y + 0.067,0.4, 255,255,255,255)
-			local y = vestpolice.menu.y + 0.12
+			local menu = jvest.menu[jvest.currentmenu]
+			drawTxt(jvest.title,1,1,jvest.menu.x,jvest.menu.y,1.0, 255,255,255,255)
+			drawMenuTitle(menu.title, jvest.menu.x,jvest.menu.y + 0.08)
+			drawTxt(jvest.selectedbutton.."/"..tablelength(menu.buttons),0,0,jvest.menu.x + jvest.menu.width/2 - 0.0385,jvest.menu.y + 0.067,0.4, 255,255,255,255)
+			local y = jvest.menu.y + 0.12
 			buttoncount = tablelength(menu.buttons)
 			local selected = false
 
 			for i,button in pairs(menu.buttons) do
-				if i >= vestpolice.menu.from and i <= vestpolice.menu.to then
+				if i >= jvest.menu.from and i <= jvest.menu.to then
 
-					if i == vestpolice.selectedbutton then
+					if i == jvest.selectedbutton then
 						selected = true
 					else
 						selected = false
 					end
-					drawMenuButton(button,vestpolice.menu.x,y,selected)
+					drawMenuButton(button,jvest.menu.x,y,selected)
 					if button.distance ~= nil then
-						drawMenuRight(button.distance.."m",vestpolice.menu.x,y,selected)
+						drawMenuRight(button.distance.."m",jvest.menu.x,y,selected)
 					end
 					y = y + 0.04
 					if selected and IsControlJustPressed(1,201) then
@@ -347,7 +347,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		if vestpolice.opened then
+		if jvest.opened then
 			if IsControlJustPressed(1,202) then
 				BackVest()
 			end
@@ -355,20 +355,20 @@ Citizen.CreateThread(function()
 				backlock = false
 			end
 			if IsControlJustPressed(1,188) then
-				if vestpolice.selectedbutton > 1 then
-					vestpolice.selectedbutton = vestpolice.selectedbutton -1
-					if buttoncount > 10 and vestpolice.selectedbutton < vestpolice.menu.from then
-						vestpolice.menu.from = vestpolice.menu.from -1
-						vestpolice.menu.to = vestpolice.menu.to - 1
+				if jvest.selectedbutton > 1 then
+					jvest.selectedbutton = jvest.selectedbutton -1
+					if buttoncount > 10 and jvest.selectedbutton < jvest.menu.from then
+						jvest.menu.from = jvest.menu.from -1
+						jvest.menu.to = jvest.menu.to - 1
 					end
 				end
 			end
 			if IsControlJustPressed(1,187)then
-				if vestpolice.selectedbutton < buttoncount then
-					vestpolice.selectedbutton = vestpolice.selectedbutton +1
-					if buttoncount > 10 and vestpolice.selectedbutton > vestpolice.menu.to then
-						vestpolice.menu.to = vestpolice.menu.to + 1
-						vestpolice.menu.from = vestpolice.menu.from + 1
+				if jvest.selectedbutton < buttoncount then
+					jvest.selectedbutton = jvest.selectedbutton +1
+					if buttoncount > 10 and jvest.selectedbutton > jvest.menu.to then
+						jvest.menu.to = jvest.menu.to + 1
+						jvest.menu.from = jvest.menu.from + 1
 					end
 				end
 			end

@@ -7,10 +7,10 @@ dependency 'essentialmode'
 -- General
 client_scripts {
   'client.lua',
-  'vestpolice.lua',
-  'menupolice.lua',
-  'policeveh.lua',
-  'helico.lua',
+  'jvest.lua',
+  'jmenu.lua',
+  'jveh.lua',
+  'jhelico.lua',
 }
 
 server_scripts {

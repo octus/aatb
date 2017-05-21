@@ -1,28 +1,28 @@
 require "resources/essentialmode/lib/MySQL"
 MySQL:open("127.0.0.1", "gta5_gamemode_essential", "root", "1202")
 
---local inServiceCops = {}
+--local inServiceJous = {}
 
-function addCop(identifier)
+function addJou(identifier)
 	MySQL:executeQuery("INSERT INTO journaliste (`identifier`) VALUES ('@identifier')", { ['@identifier'] = identifier})
 end
 
-function remCop(identifier)
+function remJou(identifier)
 	MySQL:executeQuery("DELETE FROM journaliste WHERE identifier = '@identifier'", { ['@identifier'] = identifier})
 end
 
-function checkIsCop(identifier)
+function checkIsJou(identifier)
 	local query = MySQL:executeQuery("SELECT * FROM journaliste WHERE identifier = '@identifier'", { ['@identifier'] = identifier})
 	local result = MySQL:getResults(query, {'rank'}, "identifier")
 	
 	if(not result[1]) then
-		TriggerClientEvent('journaliste:receiveIsCop', source, "inconnu")
+		TriggerClientEvent('journaliste:receiveIsJou', source, "inconnu")
 	else
-		TriggerClientEvent('journaliste:receiveIsCop', source, result[1].rank)
+		TriggerClientEvent('journaliste:receiveIsJou', source, result[1].rank)
 	end
 end
 
-function s_checkIsCop(identifier)
+function s_checkIsJou(identifier)
 	local query = MySQL:executeQuery("SELECT * FROM journaliste WHERE identifier = '@identifier'", { ['@identifier'] = identifier})
 	local result = MySQL:getResults(query, {'rank'}, "identifier")
 	
@@ -63,41 +63,41 @@ end
 	end)
 	
     return strResult
-end
+end]]
 
 AddEventHandler('playerDropped', function()
-	if(inServiceCops[source]) then
-		inServiceCops[source] = nil
+	if(inServiceJous[source]) then
+		inServiceJous[source] = nil
 		
-		for i, c in pairs(inServiceCops) do
-			TriggerClientEvent("police:resultAllCopsInService", i, inServiceCops)
+		for i, c in pairs(inServiceJous) do
+			TriggerClientEvent("journaliste:resultAllJousInService", i, inServiceJous)
 		end
 	end
 end)
 
 AddEventHandler('es:playerDropped', function(player)
-		local isCop = s_checkIsCop(player.identifier)
-		if(isCop ~= "nil") then
+		local isJou = s_checkIsJou(player.identifier)
+		if(isJou ~= "nil") then
 			TriggerEvent("jobssystem:disconnectReset", player, 1)
 		end
-end)]]
+end)
 
-RegisterServerEvent('journaliste:checkIsCop')
-AddEventHandler('journaliste:checkIsCop', function()
+RegisterServerEvent('journaliste:checkIsJou')
+AddEventHandler('journaliste:checkIsJou', function()
 	TriggerEvent("es:getPlayerFromId", source, function(user)
 		local identifier = user.identifier
-		checkIsCop(identifier)
+		checkIsJou(identifier)
 	end)
 end)
 
 RegisterServerEvent('journaliste:takeService')
 AddEventHandler('journaliste:takeService', function()
 
-	if(not inServiceCops[source]) then
-		inServiceCops[source] = GetPlayerName(source)
+	if(not inServiceJous[source]) then
+		inServiceJous[source] = GetPlayerName(source)
 		
-		for i, c in pairs(inServiceCops) do
-			TriggerClientEvent("journaliste:resultAllCopsInService", i, inServiceCops)
+		for i, c in pairs(inServiceJous) do
+			TriggerClientEvent("journaliste:resultAllJousInService", i, inServiceJous)
 		end
 	end
 end)
@@ -105,18 +105,18 @@ end)
 RegisterServerEvent('journaliste:breakService')
 AddEventHandler('journaliste:breakService', function()
 
-	if(inServiceCops[source]) then
-		inServiceCops[source] = nil
+	if(inServiceJous[source]) then
+		inServiceJous[source] = nil
 		
-		for i, c in pairs(inServiceCops) do
-			TriggerClientEvent("journaliste:resultAllCopsInService", i, inServiceCops)
+		for i, c in pairs(inServiceJous) do
+			TriggerClientEvent("journaliste:resultAllJousInService", i, inServiceJous)
 		end
 	end
 end)
 
-RegisterServerEvent('journaliste:getAllCopsInService')
-AddEventHandler('journaliste:getAllCopsInService', function()
-	TriggerClientEvent("journaliste:resultAllCopsInService", source, inServiceCops)
+RegisterServerEvent('journaliste:getAllJousInService')
+AddEventHandler('journaliste:getAllJousInService', function()
+	TriggerClientEvent("journaliste:resultAllJousInService", source, inServiceJous)
 end)
 
 --[[RegisterServerEvent('police:checkingPlate')
@@ -164,30 +164,30 @@ end)]]
 -----------------------------------------------------------------------
 ----------------------EVENT SPAWN POLICE VEH---------------------------
 -----------------------------------------------------------------------
-RegisterServerEvent('CheckPoliceVeh')
-AddEventHandler('CheckPoliceVeh', function(vehicle)
+RegisterServerEvent('CheckJVeh')
+AddEventHandler('CheckJVeh', function(vehicle)
 	TriggerEvent('es:getPlayerFromId', source, function(user)
 
-			TriggerClientEvent('FinishPoliceCheckForVeh',source)
+			TriggerClientEvent('FinishJCheckForVeh',source)
 			-- Spawn police vehicle
-			TriggerClientEvent('policeveh:spawnVehicle', source, vehicle)
+			TriggerClientEvent('jveh:spawnVehicle', source, vehicle)
 	end)
 end)
 
 -----------------------------------------------------------------------
 ---------------------COMMANDE ADMIN AJOUT / SUPP COP-------------------
 -----------------------------------------------------------------------
-TriggerEvent('es:addGroupCommand', 'jouradd', "admin", function(source, args, user)
+TriggerEvent('es:addGroupCommand', 'jouadd', "admin", function(source, args, user)
      if(not args[2]) then
-		TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "Usage : /jouradd [ID]")	
+		TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "Usage : /jouadd [ID]")	
 	else
 		if(GetPlayerName(tonumber(args[2])) ~= nil)then
 			local player = tonumber(args[2])
 			TriggerEvent("es:getPlayerFromId", player, function(target)
-				addCop(target.identifier)
+				addJou(target.identifier)
 				TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "Roger that !")
-				TriggerClientEvent("es_freeroam:notify", player, "CHAR_ANDREAS", 1, "GOUVERNRMENT", false, "Congrats, you're now a cop !~w~.")
-				TriggerClientEvent('journaliste:nowCop', player)
+				TriggerClientEvent("es_freeroam:notify", player, "CHAR_ANDREAS", 1, "GOUVERNRMENT", false, "Congrats, you're now a journaliste !~w~.")
+				TriggerClientEvent('journaliste:nowJou', player)
 			end)
 		else
 			TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "No player with this ID !")
@@ -197,18 +197,18 @@ end, function(source, args, user)
 	TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "You haven't the permission to do that !")
 end)
 
-TriggerEvent('es:addGroupCommand', 'coprem', "admin", function(source, args, user) 
+TriggerEvent('es:addGroupCommand', 'jourem', "admin", function(source, args, user) 
      if(not args[2]) then
-		TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "Usage : /coprem [ID]")	
+		TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "Usage : /jourem [ID]")	
 	else
 		if(GetPlayerName(tonumber(args[2])) ~= nil)then
 			local player = tonumber(args[2])
 			TriggerEvent("es:getPlayerFromId", player, function(target)
-				remCop(target.identifier)
-				TriggerClientEvent("es_freeroam:notify", player, "CHAR_ANDREAS", 1, "GOUVERNRMENT", false, "You're no longer a cop !~w~.")
+				remJou(target.identifier)
+				TriggerClientEvent("es_freeroam:notify", player, "CHAR_ANDREAS", 1, "GOUVERNRMENT", false, "You're no longer a journaliste !~w~.")
 				TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "Roger that !")
-				--TriggerClientEvent('chatMessage', player, 'GOUVERNRMENT', {255, 0, 0}, "You're no longer a cop !")
-				TriggerClientEvent('journaliste:noLongerCop', player)
+				TriggerClientEvent('chatMessage', player, 'GOUVERNRMENT', {255, 0, 0}, "You're no longer a journaliste !")
+				TriggerClientEvent('journaliste:noLongerJou', player)
 			end)
 		else
 			TriggerClientEvent('chatMessage', source, 'GOUVERNRMENT', {255, 0, 0}, "No player with this ID !")

@@ -3,8 +3,8 @@ local alreadyDead = false
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        --if(isCop) then
-			--if(isInService) then
+        if(isJou) then
+			if(isInService) then
 			
 				if(IsPlayerDead(PlayerId())) then
 					if(alreadyDead == false) then
