@@ -1,4 +1,4 @@
-local policeveh = {
+local jveh = {
 	opened = false,
 	title = "Garage journalistes",
 	currentmenu = "main",
@@ -21,11 +21,11 @@ local policeveh = {
 			name = "main",
 			buttons = {
 				{name = "Rumpo", costs = 0, description = {}, model = "rumpo"},
-				--{name = "Ford Cruiser", costs = 0, description = {}, model = "police3"},
-				--{name = "Mitsubishi Lancer", costs = 0, description = {}, model = "police2"},
-				--{name = "BMW Patrouille", costs = 0, description = {}, model = "police"},
-				--{name = "BMW Police", costs = 0, description = {}, model = "jones1"},
-				--{name = "Moto de police", costs = 0, description = {}, model = "policeb"},			
+				--{name = "Ford Cruiser", costs = 0, description = {}, model = "j3"},
+				--{name = "Mitsubishi Lancer", costs = 0, description = {}, model = "j2"},
+				--{name = "BMW Patrouille", costs = 0, description = {}, model = "j"},
+				--{name = "BMW j", costs = 0, description = {}, model = "jones1"},
+				--{name = "Moto de j", costs = 0, description = {}, model = "jb"},			
 			}
 		},
 	}
@@ -43,16 +43,16 @@ end
 -------------------------------------------------
 function ButtonSelected(button)
 	local ped = GetPlayerPed(-1)
-	local this = policeveh.currentmenu
+	local this = jveh.currentmenu
 	if this == "main" then
-		TriggerServerEvent('CheckPoliceVeh',button.model)
+		TriggerServerEvent('CheckJVeh',button.model)
 	end
 end
 -------------------------------------------------
 ------------------FINISH AND CLOSE---------------
 -------------------------------------------------
-RegisterNetEvent('FinishPoliceCheckForVeh')
-AddEventHandler('FinishPoliceCheckForVeh', function()
+RegisterNetEvent('FinishJCheckForVeh')
+AddEventHandler('FinishJCheckForVeh', function()
 	boughtcar = true
 	CloseVeh()
 end)
@@ -63,7 +63,7 @@ function DoesPlayerHaveVehicle(model,button,y,selected)
 		local t = false
 		--TODO:check if player own car
 		if t then
-			drawMenuRight("OWNED",policeveh.menu.x,y,selected)
+			drawMenuRight("OWNED",jveh.menu.x,y,selected)
 		end
 end
 -------------------------------------------------
@@ -71,14 +71,14 @@ end
 -------------------------------------------------
 function OpenMenuVeh(menu)
 	fakecar = {model = '', car = nil}
-	policeveh.lastmenu = policeveh.currentmenu
+	jveh.lastmenu = jveh.currentmenu
 	if menu == "main" then
-		policeveh.lastmenu = "main"
+		jveh.lastmenu = "main"
 	end
-	policeveh.menu.from = 1
-	policeveh.menu.to = 10
-	policeveh.selectedbutton = 0
-	policeveh.currentmenu = menu
+	jveh.menu.from = 1
+	jveh.menu.to = 10
+	jveh.selectedbutton = 0
+	jveh.currentmenu = menu
 end
 -------------------------------------------------
 ------------------DRAW NOTIFY--------------------
@@ -92,7 +92,7 @@ end
 ------------------DRAW TITLE MENU----------------
 -------------------------------------------------
 function drawMenuTitle(txt,x,y)
-local menu = policeveh.menu
+local menu = jveh.menu
 	SetTextFont(2)
 	SetTextProportional(0)
 	SetTextScale(0.5, 0.5)
@@ -106,7 +106,7 @@ end
 ------------------DRAW MENU BOUTON---------------
 -------------------------------------------------
 function drawMenuButton(button,x,y,selected)
-	local menu = policeveh.menu
+	local menu = jveh.menu
 	SetTextFont(menu.font)
 	SetTextProportional(0)
 	SetTextScale(menu.scale, menu.scale)
@@ -129,7 +129,7 @@ end
 ------------------DRAW MENU INFO-----------------
 -------------------------------------------------
 function drawMenuInfo(text)
-	local menu = policeveh.menu
+	local menu = jveh.menu
 	SetTextFont(menu.font)
 	SetTextProportional(0)
 	SetTextScale(0.45, 0.45)
@@ -144,7 +144,7 @@ end
 ----------------DRAW MENU DROIT------------------
 -------------------------------------------------
 function drawMenuRight(txt,x,y,selected)
-	local menu = policeveh.menu
+	local menu = jveh.menu
 	SetTextFont(menu.font)
 	SetTextProportional(0)
 	SetTextScale(menu.scale, menu.scale)
@@ -184,7 +184,7 @@ function Back()
 		return
 	end
 	backlock = true
-	if policeveh.currentmenu == "main" then
+	if jveh.currentmenu == "main" then
 		CloseVeh()
 	elseif vehshop.currentmenu == "main" then
 		if DoesEntityExist(fakecar.car) then
@@ -192,7 +192,7 @@ function Back()
 		end
 		fakecar = {model = '', car = nil}
 	else
-		OpenMenuVeh(policeveh.lastmenu)
+		OpenMenuVeh(jveh.lastmenu)
 	end
 end
 -------------------------------------------------
@@ -245,9 +245,9 @@ function OpenVeh() --OpenCreator
 	local g = Citizen.InvokeNative(0xC906A7DAB05C8D2B,pos[1],pos[2],pos[3],Citizen.PointerValueFloat(),0)
 	SetEntityCoords(ped,pos[1],pos[2],g)
 	SetEntityHeading(ped,pos[4])
-	policeveh.currentmenu = "main"
-	policeveh.opened = true
-	policeveh.selectedbutton = 0
+	jveh.currentmenu = "main"
+	jveh.opened = true
+	jveh.selectedbutton = 0
 end
 -------------------------------------------------
 ----------------FONCTION CLOSE-------------------
@@ -276,26 +276,26 @@ function CloseVeh() -- Close Creator
 			while not HasModelLoaded(model) do
 				Citizen.Wait(0)
 			end
-			policevehicle = CreateVehicle(model, plyCoords["x"], plyCoords["y"], plyCoords["z"],90.0,true,false)
+			jvehicle = CreateVehicle(model, plyCoords["x"], plyCoords["y"], plyCoords["z"],90.0,true,false)
 			SetModelAsNoLongerNeeded(model)
 			--[[for i,mod in pairs(mods) do
-				SetVehicleModKit(policevehicle,0)
-				SetVehicleMod(policevehicle,i,mod)
+				SetVehicleModKit(jvehicle,0)
+				SetVehicleMod(jvehicle,i,mod)
 			end]]
 			
-			SetVehicleMod(policevehicle, 11, 2)
-			SetVehicleMod(policevehicle, 12, 2)
-			SetVehicleMod(policevehicle, 13, 2)
-			SetVehicleEnginePowerMultiplier(policevehicle, 35.0)
+			SetVehicleMod(jvehicle, 11, 2)
+			SetVehicleMod(jvehicle, 12, 2)
+			SetVehicleMod(jvehicle, 13, 2)
+			SetVehicleEnginePowerMultiplier(jvehicle, 35.0)
 			
-			SetVehicleOnGroundProperly(policevehicle)
-			SetVehicleHasBeenOwnedByPlayer(policevehicle,true)
-			local id = NetworkGetNetworkIdFromEntity(policevehicle)
+			SetVehicleOnGroundProperly(jvehicle)
+			SetVehicleHasBeenOwnedByPlayer(jvehicle,true)
+			local id = NetworkGetNetworkIdFromEntity(jvehicle)
 			SetNetworkIdCanMigrate(id, true)
-			Citizen.InvokeNative(0x629BFA74418D6239,Citizen.PointerValueIntInitialized(policevehicle))
-			SetVehicleColours(policevehicle,colors[1],colors[2])
-			SetVehicleExtraColours(policevehicle,extra_colors[1],extra_colors[2])
-			TaskWarpPedIntoVehicle(GetPlayerPed(-1),policevehicle,-1)
+			Citizen.InvokeNative(0x629BFA74418D6239,Citizen.PointerValueIntInitialized(jvehicle))
+			SetVehicleColours(jvehicle,colors[1],colors[2])
+			SetVehicleExtraColours(jvehicle,extra_colors[1],extra_colors[2])
+			TaskWarpPedIntoVehicle(GetPlayerPed(-1),jvehicle,-1)
 			SetEntityVisible(ped,true)
 			
 			if DoesEntityExist(fakecar.car) then
@@ -303,9 +303,9 @@ function CloseVeh() -- Close Creator
 			end
 		end
 		
-		policeveh.opened = false
-		policeveh.menu.from = 1
-		policeveh.menu.to = 10
+		jveh.opened = false
+		jveh.menu.from = 1
+		jveh.menu.to = 10
 	end)
 end
 -------------------------------------------------
@@ -316,34 +316,34 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		if GetDistanceBetweenCoords(-1099.238, -256.956, 37.687,GetEntityCoords(GetPlayerPed(-1))) > 5 then
-			if policeveh.opened then
+			if jveh.opened then
 				CloseVeh()
 			end
 		end
-		if policeveh.opened then
+		if jveh.opened then
 			local ped = LocalPed()
-			local menu = policeveh.menu[policeveh.currentmenu]
-			drawTxt(policeveh.title,1,1,policeveh.menu.x,policeveh.menu.y,1.0, 255,255,255,255)
-			drawMenuTitle(menu.title, policeveh.menu.x,policeveh.menu.y + 0.08)
-			drawTxt(policeveh.selectedbutton.."/"..tablelength(menu.buttons),0,0,policeveh.menu.x + policeveh.menu.width/2 - 0.0385,policeveh.menu.y + 0.067,0.4, 255,255,255,255)
-			local y = policeveh.menu.y + 0.12
+			local menu = jveh.menu[jveh.currentmenu]
+			drawTxt(jveh.title,1,1,jveh.menu.x,jveh.menu.y,1.0, 255,255,255,255)
+			drawMenuTitle(menu.title, jveh.menu.x,jveh.menu.y + 0.08)
+			drawTxt(jveh.selectedbutton.."/"..tablelength(menu.buttons),0,0,jveh.menu.x + jveh.menu.width/2 - 0.0385,jveh.menu.y + 0.067,0.4, 255,255,255,255)
+			local y = jveh.menu.y + 0.12
 			buttoncount = tablelength(menu.buttons)
 			local selected = false
 
 			for i,button in pairs(menu.buttons) do
-				if i >= policeveh.menu.from and i <= policeveh.menu.to then
+				if i >= jveh.menu.from and i <= jveh.menu.to then
 
-					if i == policeveh.selectedbutton then
+					if i == jveh.selectedbutton then
 						selected = true
 					else
 						selected = false
 					end
-					drawMenuButton(button,policeveh.menu.x,y,selected)
+					drawMenuButton(button,jveh.menu.x,y,selected)
 					--if button.distance ~= nil then
-						--drawMenuRight(button.distance.."m",policeveh.menu.x,y,selected)
+						--drawMenuRight(button.distance.."m",jveh.menu.x,y,selected)
 					--end
 					y = y + 0.04
-					if policeveh.currentmenu == "main" then
+					if jveh.currentmenu == "main" then
 						if selected then
 								if fakecar.model ~= button.model then
 									if DoesEntityExist(fakecar.car) then
@@ -382,7 +382,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		if policeveh.opened then
+		if jveh.opened then
 			if IsControlJustPressed(1,202) then
 				Back()
 			end
@@ -390,20 +390,20 @@ Citizen.CreateThread(function()
 				backlock = false
 			end
 			if IsControlJustPressed(1,188) then
-				if policeveh.selectedbutton > 1 then
-					policeveh.selectedbutton = policeveh.selectedbutton -1
-					if buttoncount > 10 and policeveh.selectedbutton < policeveh.menu.from then
-						policeveh.menu.from = policeveh.menu.from -1
-						policeveh.menu.to = policeveh.menu.to - 1
+				if jveh.selectedbutton > 1 then
+					jveh.selectedbutton = jveh.selectedbutton -1
+					if buttoncount > 10 and jveh.selectedbutton < jveh.menu.from then
+						jveh.menu.from = jveh.menu.from -1
+						jveh.menu.to = jveh.menu.to - 1
 					end
 				end
 			end
 			if IsControlJustPressed(1,187)then
-				if policeveh.selectedbutton < buttoncount then
-					policeveh.selectedbutton = policeveh.selectedbutton +1
-					if buttoncount > 10 and policeveh.selectedbutton > policeveh.menu.to then
-						policeveh.menu.to = policeveh.menu.to + 1
-						policeveh.menu.from = policeveh.menu.from + 1
+				if jveh.selectedbutton < buttoncount then
+					jveh.selectedbutton = jveh.selectedbutton +1
+					if buttoncount > 10 and jveh.selectedbutton > jveh.menu.to then
+						jveh.menu.to = jveh.menu.to + 1
+						jveh.menu.from = jveh.menu.from + 1
 					end
 				end
 			end
@@ -414,8 +414,8 @@ end)
 ---------------------------------------------------
 ------------------EVENT SPAWN VEH------------------
 ---------------------------------------------------
-RegisterNetEvent('policeveh:spawnVehicle')
-AddEventHandler('policeveh:spawnVehicle', function(v)
+RegisterNetEvent('jveh:spawnVehicle')
+AddEventHandler('jveh:spawnVehicle', function(v)
 	local car = GetHashKey(v)
 	local playerPed = GetPlayerPed(-1)
 	if playerPed and playerPed ~= -1 then
