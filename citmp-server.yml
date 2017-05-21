@@ -61,7 +61,7 @@ AutoStartResources:
     - loadipl
     - emergency 
     - watermark #nom serveur
-    - og_journaliste
+    #- og_journaliste
 
 
 # do change
