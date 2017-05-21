@@ -45,14 +45,14 @@ function ButtonSelected(button)
 	local ped = GetPlayerPed(-1)
 	local this = jveh.currentmenu
 	if this == "main" then
-		TriggerServerEvent('CheckJVeh',button.model)
+		TriggerServerEvent('CheckJouVeh',button.model)
 	end
 end
 -------------------------------------------------
 ------------------FINISH AND CLOSE---------------
 -------------------------------------------------
-RegisterNetEvent('FinishJCheckForVeh')
-AddEventHandler('FinishJCheckForVeh', function()
+RegisterNetEvent('FinishJouCheckForVeh')
+AddEventHandler('FinishJouCheckForVeh', function()
 	boughtcar = true
 	CloseVeh()
 end)

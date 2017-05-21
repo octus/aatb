@@ -164,11 +164,11 @@ end)]]
 -----------------------------------------------------------------------
 ----------------------EVENT SPAWN POLICE VEH---------------------------
 -----------------------------------------------------------------------
-RegisterServerEvent('CheckJVeh')
-AddEventHandler('CheckJVeh', function(vehicle)
+RegisterServerEvent('CheckJouVeh')
+AddEventHandler('CheckJouVeh', function(vehicle)
 	TriggerEvent('es:getPlayerFromId', source, function(user)
 
-			TriggerClientEvent('FinishJCheckForVeh',source)
+			TriggerClientEvent('FinishJouCheckForVeh',source)
 			-- Spawn police vehicle
 			TriggerClientEvent('jveh:spawnVehicle', source, vehicle)
 	end)
